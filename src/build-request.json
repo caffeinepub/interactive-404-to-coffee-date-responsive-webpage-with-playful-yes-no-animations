@@ -1,0 +1,69 @@
+{
+  "kind": "build_request",
+  "title": "Add shareable warning-gate link and copyable URL",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Add a new initial \"Warning\" screen that displays the text \"Open this link at your own risk\" and requires the user to click a \"Continue\" button before entering the existing app flow (404 -> invitation -> celebration).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-20"
+        ],
+        "quotes": [
+          "warning open this link at your own risk please"
+        ]
+      },
+      "acceptanceCriteria": [
+        "When the app is opened via the dedicated share/warning URL, the Warning screen is the first thing shown.",
+        "The Warning screen contains the exact warning sentence: \"Open this link at your own risk\".",
+        "Clicking \"Continue\" transitions into the existing 404 screen and preserves all existing interactions/animations afterward."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Implement a shareable URL format that includes an explicit link segment/fragment (e.g., a hash fragment) to open the app directly in the Warning screen, and display this full share URL in the UI with a copy-to-clipboard action.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-20"
+        ],
+        "quotes": [
+          "also you can add some link to the domain link"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The app can derive a \"share link\" at runtime from the current window location (origin + path) plus the chosen fragment/segment for the Warning screen.",
+        "The UI shows the full share link as text and provides a \"Copy\" button that copies it to the clipboard.",
+        "Copy action provides clear success/failure feedback in the UI (English text)."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Keep all user-facing text on the new Warning/share UI in English and align styling with the existing soft pastel aesthetic (card container, rounded edges, subtle shadows, smooth transitions).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-20"
+        ]
+      },
+      "acceptanceCriteria": [
+        "All new UI strings are English.",
+        "Warning/share UI visually matches the existing design system (typography, rounded cards, shadows, transitions)."
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not modify files under frontend/src/components/ui (Shadcn components are read-only).",
+    "Do not edit immutable hook files: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx."
+  ],
+  "nonGoals": [
+    "Do not implement or depend on backend changes; backend/main.mo can remain unchanged.",
+    "Do not implement deployment-domain/slug validation logic in the app UI; deployment domain rules are handled by the deployment system."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}

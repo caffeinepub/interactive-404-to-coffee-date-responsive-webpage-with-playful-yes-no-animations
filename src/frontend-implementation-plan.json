@@ -1,0 +1,74 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Shareable warning-gate entry and copyable share URL",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Add a new initial Warning screen gated by a Continue button before entering the existing 404 → invitation → celebration flow.",
+      "acceptanceCriteria": [
+        "When the app is opened via the dedicated share/warning URL, the Warning screen is the first thing shown.",
+        "The Warning screen contains the exact warning sentence: \"Open this link at your own risk\".",
+        "Clicking \"Continue\" transitions into the existing 404 screen and preserves all existing interactions/animations afterward."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/WarningGate.tsx",
+          "operation": "create",
+          "description": "Create a WarningGate UI component that renders the exact warning text and a \"Continue\" button, styled to match the existing pastel card aesthetic (reuse existing utility classes like card-container, rounded edges, subtle shadows, smooth transitions). Use the shadcn-ui Button component for actions. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire the new Warning screen into the existing screen-state flow by adding a 'warning' screen state and conditional rendering with the same transition patterns used by existing screens. On load, detect the dedicated warning URL fragment/segment and start on the Warning screen; on Continue, transition to the existing '404' screen without changing subsequent behaviors/animations."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Implement a shareable Warning URL format and show a copyable share link with clear copy success/failure feedback.",
+      "acceptanceCriteria": [
+        "The app can derive a \"share link\" at runtime from the current window location (origin + path) plus the chosen fragment/segment for the Warning screen.",
+        "The UI shows the full share link as text and provides a \"Copy\" button that copies it to the clipboard.",
+        "Copy action provides clear success/failure feedback in the UI (English text)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useShareLink.ts",
+          "operation": "create",
+          "description": "Add a small React hook that derives the full share URL at runtime from window.location (origin + pathname) plus the chosen Warning fragment/segment, and exposes a copy-to-clipboard action with success/failure status for UI feedback."
+        },
+        {
+          "path": "frontend/src/components/WarningGate.tsx",
+          "operation": "modify",
+          "description": "Display the derived full share link as visible text and add a \"Copy\" button that triggers the copy-to-clipboard action, showing clear success/failure feedback text in English. Use the shadcn-ui Button component for the copy action (and any secondary action button styling). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Ensure the chosen URL fragment/segment for the Warning screen is consistently used for (1) initial Warning-screen detection and (2) derived share-link generation in the Warning/share UI."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Ensure all new Warning/share UI strings are English and styling matches the existing soft pastel design system.",
+      "acceptanceCriteria": [
+        "All new UI strings are English.",
+        "Warning/share UI visually matches the existing design system (typography, rounded cards, shadows, transitions)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/WarningGate.tsx",
+          "operation": "modify",
+          "description": "Audit and enforce that all user-facing strings added for the Warning/share UI are English-only, and apply existing design utilities (card-container, rounded corners, subtle shadows, smooth transitions) so the new UI matches the current pastel aesthetic."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Ensure the Warning screen is rendered with the same layout/typography conventions as existing screens (centered container, card styling, transitions), without modifying any read-only shadcn/ui component files."
+        }
+      ]
+    }
+  ]
+}

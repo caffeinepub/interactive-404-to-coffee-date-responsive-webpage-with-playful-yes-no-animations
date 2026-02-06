@@ -1,2 +1,3 @@
-# interactive-404-to-coffee-date-responsive-webpage-with-playful-yes-no-animations
-Exported from Caffeine project: Add shareable warning-gate link and copyable URL
+## 
+
+To run app build and run docker image: `docker build -t app . docker run -it --network host app`

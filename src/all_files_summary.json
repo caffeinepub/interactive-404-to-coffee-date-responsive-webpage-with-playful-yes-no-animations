@@ -1,0 +1,19 @@
+{
+  "backend/main.mo": "Minimal Motoko canister defining an empty actor.",
+  "feature_evidence.json": "Feature evidence report listing implemented features, related files, components, and test IDs.",
+  "frontend-file-summaries.txt": "Prewritten summaries describing the purpose of various frontend files including screens, effects, hooks, and styles.",
+  "frontend/index.css": "Tailwind base setup defining OKLCH color vars, light/dark themes, and global body styling.",
+  "frontend/index.html": "HTML entry point loading the root element and main React script with preconnects for Google Fonts.",
+  "frontend/src/App.tsx": "Main React component controlling screen flow, button behaviors, animations, and visual effects.",
+  "frontend/src/components/effects/ConfettiCanvas.tsx": "Canvas-based animated confetti renderer with falling pastel particles.",
+  "frontend/src/components/effects/FireworksCanvas.tsx": "Canvas component generating randomized fireworks rockets and particle explosions.",
+  "frontend/src/components/WarningGate.tsx": "Warning screen component showing a caution message, shareable link, copy action, and continue button.",
+  "frontend/src/hooks/useActor.ts": "React hook creating and managing an authenticated or anonymous backend actor with query invalidation.",
+  "frontend/src/hooks/useInternetIdentity.ts": "Provides a React context and provider for managing Internet Identity authentication, including login, logout, and identity state handling.",
+  "frontend/src/hooks/useQueries.ts": "Empty placeholder file indicating no backend queries are required.",
+  "frontend/src/hooks/useShareLink.ts": "Defines a hook that generates a shareable URL with a warning fragment and provides clipboard copy functionality with status tracking.",
+  "frontend/src/index.css": "Global Tailwind-based styling defining fonts, colors, animations, and utility classes for the app’s pastel-themed UI.",
+  "frontend/src/main.tsx": "Bootstraps the React app, wrapping it with React Query and Internet Identity providers before rendering.",
+  "frontend/tailwind.config.js": "Tailwind configuration extending themes, colors, fonts, animations, and enabling typography, container queries, and animation plugins.",
+  "project_state.json": "Stores project metadata, known issues, and feature requests related to implementing a warning screen and shareable link behavior."
+}
