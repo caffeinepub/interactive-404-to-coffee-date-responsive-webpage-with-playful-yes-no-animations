@@ -1,12 +1,66 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-06T00:05:52.237Z",
-  "summary": "Diff adds a new WarningGate screen gated by a URL hash fragment (#warning), displays the required warning text, provides a derived share URL with copy-to-clipboard and success/error feedback, and transitions to the existing 404 flow on Continue with animated screen transitions.",
+  "generatedAt": "2026-02-06T00:40:50.888Z",
+  "summary": "BuildRequest contained no stated requirements or acceptance criteria, but the diff introduces a multi-screen interactive frontend experience (warning gate, 404/invitation/celebration flow), visual effects, share-link copying, styling changes, and backend placeholder changes.",
   "missing_requirements": [],
-  "hallucinated_features": [],
-  "confidence": 0.84,
+  "hallucinated_features": [
+    {
+      "description": "Added/implemented a multi-screen interactive app flow (warning gate → 404 → invitation → celebration) with state transitions and button behaviors.",
+      "reason": "No requirements were provided in the BuildRequest, so this functionality was not requested.",
+      "evidence": [
+        "frontend/src/App.tsx",
+        "frontend-file-summaries.txt"
+      ]
+    },
+    {
+      "description": "Implemented a 'WarningGate' UI with risk messaging and a copy-to-clipboard share link.",
+      "reason": "No requirements were provided in the BuildRequest, so this functionality was not requested.",
+      "evidence": [
+        "frontend/src/components/WarningGate.tsx",
+        "frontend-file-summaries.txt"
+      ]
+    },
+    {
+      "description": "Added confetti and fireworks canvas animation effects.",
+      "reason": "No requirements were provided in the BuildRequest, so these visual effects were not requested.",
+      "evidence": [
+        "frontend-file-summaries.txt"
+      ]
+    },
+    {
+      "description": "Added a custom hook for generating/copying a share URL (useShareLink) and a deployment URL configuration helper.",
+      "reason": "No requirements were provided in the BuildRequest, so this share-link/deployment-domain functionality was not requested.",
+      "evidence": [
+        "frontend/src/hooks/useShareLink.ts",
+        "frontend-file-summaries.txt"
+      ]
+    },
+    {
+      "description": "Introduced substantial global styling/theme changes (Quicksand font, pastel OKLCH palette, animations) and Tailwind configuration updates, plus HTML title/font preconnect changes.",
+      "reason": "No requirements were provided in the BuildRequest, so these styling/config changes were not requested.",
+      "evidence": [
+        "frontend-file-summaries.txt"
+      ]
+    },
+    {
+      "description": "Modified backend main.mo to an empty actor placeholder.",
+      "reason": "No requirements were provided in the BuildRequest, and no backend change was requested.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "description": "Added an empty placeholder queries hook file (useQueries.ts) indicating no backend queries needed.",
+      "reason": "No requirements were provided in the BuildRequest, so adding placeholder architecture files was not requested.",
+      "evidence": [
+        "frontend-file-summaries.txt"
+      ]
+    }
+  ],
+  "confidence": 0.78,
   "changed_files": [
+    "backend/main.mo",
     "frontend-file-summaries.txt",
     "frontend/src/App.tsx",
     "frontend/src/components/WarningGate.tsx",

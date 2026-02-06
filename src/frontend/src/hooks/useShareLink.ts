@@ -1,21 +1,21 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
+import { getDeploymentUrl } from '@/config/deploymentDomain';
 
 export function useShareLink() {
   const [copyStatus, setCopyStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const shareUrl = getDeploymentUrl();
 
-  // Generate the full share URL with warning fragment
-  const shareUrl = `${window.location.origin}${window.location.pathname}#warning`;
-
-  const copyToClipboard = useCallback(async () => {
+  const copyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(shareUrl);
       setCopyStatus('success');
       setTimeout(() => setCopyStatus('idle'), 2000);
-    } catch (error) {
+    } catch (err) {
+      console.error('Failed to copy:', err);
       setCopyStatus('error');
       setTimeout(() => setCopyStatus('idle'), 2000);
     }
-  }, [shareUrl]);
+  };
 
   return {
     shareUrl,

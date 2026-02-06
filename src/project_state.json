@@ -2,54 +2,19 @@
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
   "summary": "New project",
-  "architectural_notes": [
-    "Deployment domain/slug must be 5–50 characters and contain only letters, numbers, and hyphens."
-  ],
-  "known_issues": [
-    "Deployment did not generate a share link due to invalid domain/slug input failing validation."
-  ],
-  "isFixRequest": true,
-  "existing_features": [
-    {
-      "id": "feature-add-a-new-initial-warning-screen-that-displays-the-text-open-this-link-at-your-own-risk-and-requires-the-user-to-click-a-continue-button-before-entering-the-existing-app-flow-404-invitation-celebration",
-      "title": "Add a new initial \"Warning\" screen that displays the text \"Open this link at your own risk\" and requires the user to click a \"Continue\" button before entering the existing app flow (404 -> invitation -> celebration).",
-      "reqIds": [
-        "REQ-1"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-a-shareable-url-format-that-includes-an-explicit-link-segment-fragment-e-g-a-hash-fragment-to-open-the-app-directly-in-the-warning-screen-and-display-this-full-share-url-in-the-ui-with-a-copy-to-clipboard-action",
-      "title": "Implement a shareable URL format that includes an explicit link segment/fragment (e.g., a hash fragment) to open the app directly in the Warning screen, and display this full share URL in the UI with a copy-to-clipboard action.",
-      "reqIds": [
-        "REQ-2"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-keep-all-user-facing-text-on-the-new-warning-share-ui-in-english-and-align-styling-with-the-existing-soft-pastel-aesthetic-card-container-rounded-edges-subtle-shadows-smooth-transitions",
-      "title": "Keep all user-facing text on the new Warning/share UI in English and align styling with the existing soft pastel aesthetic (card container, rounded edges, subtle shadows, smooth transitions).",
-      "reqIds": [
-        "REQ-3"
-      ],
-      "version": 1
-    }
-  ],
+  "architectural_notes": [],
+  "known_issues": [],
+  "isFixRequest": false,
+  "existing_features": [],
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Add a shareable link/page that displays a warning message (e.g., 'Open this link at your own risk') before continuing",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-2",
-      "summary": "Allow customizing the deployment domain/slug while enforcing valid characters (letters/numbers/hyphens) and length constraints",
+      "summary": "Remove the \"coffee invitation\" line and adjust the draft link text/tone to be more suspicious",
       "reqIds": [],
       "status": "pending"
     }
   ],
-  "projectName": "Add shareable warning-gate link and copyable URL",
+  "projectName": "Untitled request",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

@@ -7,15 +7,15 @@ import WarningGate from '@/components/WarningGate';
 type Screen = 'warning' | '404' | 'invitation' | 'celebration';
 
 const NO_MESSAGES = [
-  "wait....are you sure? 😢",
-  "Really? 💔",
-  "try again 🥺",
-  "you sure? 😭",
-  "haha nice try 😏",
-  "no escape saraf 😈",
-  "nice try 😤",
-  "you cant escape 🙃",
-  "you are testing my patience 😠"
+  "wait....are you sure?",
+  "Really.",
+  "try again.",
+  "you sure.",
+  "haha nice try.",
+  "no escape .",
+  "nice try.",
+  "you cant escape.",
+  "you are testing my patience."
 ];
 
 const GRADIENTS = [
@@ -27,10 +27,7 @@ const GRADIENTS = [
 ];
 
 function App() {
-  const [screen, setScreen] = useState<Screen>(() => {
-    // Check if URL has warning fragment
-    return window.location.hash === '#warning' ? 'warning' : '404';
-  });
+  const [screen, setScreen] = useState<Screen>('warning');
   const [noClickCount, setNoClickCount] = useState(0);
   const [noPosition, setNoPosition] = useState({ x: 0, y: 0 });
   const [gradientIndex, setGradientIndex] = useState(0);
@@ -41,16 +38,15 @@ function App() {
   const noButtonRef = useRef<HTMLButtonElement>(null);
 
   const currentEmoji = noClickCount >= 2 ? '😭' : '💔';
-  const currentNoMessage = noClickCount < NO_MESSAGES.length 
-    ? NO_MESSAGES[noClickCount] 
-    : NO_MESSAGES[NO_MESSAGES.length - 1];
+  const currentMessageIndex = noClickCount % NO_MESSAGES.length;
+  const currentNoMessage = NO_MESSAGES[currentMessageIndex];
 
   useEffect(() => {
     document.body.style.background = GRADIENTS[gradientIndex];
     document.body.style.transition = 'background 0.8s ease-in-out';
   }, [gradientIndex]);
 
-  const handleWarningContinue = () => {
+  const handleContinue = () => {
     setScreen('404');
   };
 
@@ -62,35 +58,44 @@ function App() {
     setShowAgreement(true);
     setShowConfetti(true);
     
+    // Hide buttons after 1 second
     setTimeout(() => {
       setShowButtons(false);
     }, 1000);
 
+    // Transition to celebration after 1.5 seconds
     setTimeout(() => {
       setScreen('celebration');
       setShowFireworks(true);
     }, 1500);
 
+    // Stop confetti after 5 seconds
     setTimeout(() => {
       setShowConfetti(false);
-    }, 6500);
-
-    setTimeout(() => {
-      setShowFireworks(false);
-    }, 10000);
+    }, 5000);
   };
 
   const handleNo = () => {
     setNoClickCount(prev => prev + 1);
     setGradientIndex(prev => (prev + 1) % GRADIENTS.length);
     
-    // Calculate random position within viewport
+    // Calculate random position within middle-to-upper region of viewport
     const button = noButtonRef.current;
     if (button) {
-      const maxX = window.innerWidth - button.offsetWidth - 40;
-      const maxY = window.innerHeight - button.offsetHeight - 40;
-      const randomX = Math.random() * maxX;
-      const randomY = Math.random() * maxY;
+      const buttonWidth = button.offsetWidth;
+      const buttonHeight = button.offsetHeight;
+      
+      // Define middle-to-upper region (20% margin from sides, 15% from top, 40% from bottom)
+      const marginX = window.innerWidth * 0.2;
+      const marginTop = window.innerHeight * 0.15;
+      const marginBottom = window.innerHeight * 0.4;
+      
+      const availableWidth = window.innerWidth * 0.6 - buttonWidth;
+      const availableHeight = window.innerHeight - marginTop - marginBottom - buttonHeight;
+      
+      const randomX = marginX + Math.random() * availableWidth;
+      const randomY = marginTop + Math.random() * availableHeight;
+      
       setNoPosition({ x: randomX, y: randomY });
     }
   };
@@ -101,9 +106,7 @@ function App() {
       {showFireworks && <FireworksCanvas />}
       
       <div className={`transition-all duration-700 ${screen === 'warning' ? 'opacity-100 scale-100' : 'opacity-0 scale-95 absolute pointer-events-none'}`}>
-        {screen === 'warning' && (
-          <WarningGate onContinue={handleWarningContinue} />
-        )}
+        {screen === 'warning' && <WarningGate onContinue={handleContinue} />}
       </div>
 
       <div className={`transition-all duration-700 ${screen === '404' ? 'opacity-100 scale-100' : 'opacity-0 scale-95 absolute pointer-events-none'}`}>
@@ -148,21 +151,26 @@ function App() {
 
               {showAgreement && (
                 <div className="mt-8 animate-in fade-in slide-in-from-bottom-3 duration-700 bg-white/50 backdrop-blur-sm rounded-2xl p-6 shadow-lg">
-                  <p className="text-lg font-medium text-primary/90 whitespace-pre-line text-left">
-                    By clicking YES you agree to:{'\n'}
-                    - Unlimited cuddles{'\n'}
-                    - Lifetime supply of bad puns{'\n'}
-                    - Mutual pizza stealing rights{'\n'}
+                  <p className="text-lg font-medium text-primary/90 text-left">
+                    By clicking YES you agree to:
+                  </p>
+                  <ul className="text-lg font-medium text-primary/90 text-left mt-2 space-y-1">
+                    <li>- Unlimited cuddles</li>
+                    <li>- Lifetime supply of bad puns</li>
+                    <li>- Mutual pizza stealing rights</li>
+                  </ul>
+                  <p className="text-lg font-medium text-primary/90 text-left mt-2">
                     Effective immediately!
                   </p>
                 </div>
               )}
             </div>
 
-            <div className={`flex items-center justify-center gap-6 transition-all duration-500 ${showButtons ? 'opacity-100' : 'opacity-0 scale-75'}`}>
+            <div className={`flex items-center justify-center gap-6 transition-all duration-500 ${showButtons ? 'opacity-100' : 'opacity-0 scale-75 pointer-events-none'}`}>
               <Button
                 onClick={handleYes}
                 size="lg"
+                disabled={!showButtons}
                 className="px-12 py-6 text-xl font-bold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600"
               >
                 YES
@@ -173,6 +181,7 @@ function App() {
                 onClick={handleNo}
                 size="lg"
                 variant="outline"
+                disabled={!showButtons}
                 className="px-12 py-6 text-xl font-bold rounded-full shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 bg-white/80 backdrop-blur-sm"
                 style={
                   noClickCount > 0
@@ -199,14 +208,10 @@ function App() {
               <div className="flex items-center justify-center gap-3 mb-4">
                 <span className="text-6xl animate-bounce">❤️</span>
                 <h1 className="text-5xl md:text-6xl font-bold text-primary/90 animate-in fade-in slide-in-from-top-3 duration-700">
-                  Yay! 🎉
+                  Yey i knew you'd say yes.
                 </h1>
                 <span className="text-6xl animate-bounce" style={{ animationDelay: '0.2s' }}>❤️</span>
               </div>
-              
-              <h2 className="text-3xl md:text-4xl font-semibold text-primary/80 animate-in fade-in slide-in-from-bottom-3 duration-700 delay-200">
-                I knew you'd say yes! 💕
-              </h2>
               
               <div className="mt-8 animate-in fade-in zoom-in duration-1000 delay-500">
                 <div className="bg-white/50 backdrop-blur-sm rounded-3xl p-8 shadow-2xl">
@@ -222,10 +227,6 @@ function App() {
           </div>
         )}
       </div>
-
-      <footer className="fixed bottom-4 left-0 right-0 text-center text-sm text-primary/50">
-        <p>© 2026. Built with ❤️ using <a href="https://caffeine.ai" target="_blank" rel="noopener noreferrer" className="hover:text-primary/70 transition-colors underline">caffeine.ai</a></p>
-      </footer>
     </div>
   );
 }

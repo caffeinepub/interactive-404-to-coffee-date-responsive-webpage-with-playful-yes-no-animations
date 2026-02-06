@@ -1,11 +1,12 @@
 {
-  "frontend/src/App.tsx": "Main application component managing four screens (warning, 404, invitation, celebration) with URL fragment detection for warning gate, state for NO button jumping, gradient cycling, confetti/fireworks effects, and smooth transitions between all states.",
+  "frontend/src/App.tsx": "Main application component managing four screens (warning gate, 404, invitation, celebration) with NO button jumping, user-provided phrases cycling, gradient changes, emoji switching, confetti, fireworks, and agreement message display with caffeine.ai footer removed.",
   "frontend/src/components/effects/ConfettiCanvas.tsx": "Canvas-based confetti effect component that renders 150 animated particles with physics (gravity, rotation) in romantic pastel colors for 5 seconds.",
   "frontend/src/components/effects/FireworksCanvas.tsx": "Canvas-based fireworks effect component that creates explosive particle animations with trails and gravity, launching fireworks randomly across the screen with proper null checks for TypeScript safety.",
   "frontend/src/hooks/useQueries.ts": "Empty placeholder file as no backend queries are needed for this frontend-only interactive experience.",
   "frontend/src/index.css": "Global styles with Quicksand font, soft pastel pink gradient backgrounds, OKLCH color system, floating card animations, and custom keyframe animations for smooth transitions.",
   "frontend/tailwind.config.js": "Tailwind configuration with Quicksand font family, extended pastel pink color palette in OKLCH, larger border radius values, and custom soft shadow utilities.",
   "frontend/index.html": "HTML entry point with updated title and Google Fonts preconnect for Quicksand font family.",
-  "frontend/src/components/WarningGate.tsx": "Warning gate component that displays a risk warning message with an alert icon, shows a copyable share link with copy-to-clipboard functionality and success/error feedback, and provides a Continue button to proceed to the 404 screen.",
-  "frontend/src/hooks/useShareLink.ts": "Custom React hook that generates a shareable URL with warning fragment from the current window location and provides copy-to-clipboard functionality with success/error status tracking."
+  "frontend/src/components/WarningGate.tsx": "Warning gate component that displays a suspicious risk warning with red alert styling, lists potential consequences, shows a copyable share link with copy-to-clipboard functionality, and provides a Continue button to proceed to the 404 screen.",
+  "frontend/src/hooks/useShareLink.ts": "Custom React hook that generates a shareable URL using the configured deployment domain and provides copy-to-clipboard functionality with success/error status tracking.",
+  "frontend/src/config/deploymentDomain.ts": "Configuration file that defines the deployment domain \"open-at-your-own-risk\" and provides a helper function to generate the full deployment URL, using the configured domain in production and falling back to window.location.origin in development."
 }
